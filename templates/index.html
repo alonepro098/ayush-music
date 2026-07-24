@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Card Tools Suite - Generator, BIN Lookup & Fake Address</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Base Stylesheet -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <!-- Card Suite Stylesheet -->
+    <link rel="stylesheet" href="/static/css/card_tools.css">
+</head>
+<body>
+    <div class="mesh-background">
+        <div class="mesh-gradient mesh-1"></div>
+        <div class="mesh-gradient mesh-2"></div>
+        <div class="mesh-gradient mesh-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="glass-header">
+            <div class="header-logo">
+                <i class="fa-solid fa-cube glow-icon"></i>
+                <div class="logo-text">
+                    <h1>CARD<span>SUITE</span></h1>
+                    <p>Developer Toolsuite & Generator</p>
+                </div>
+            </div>
+            
+            <div class="header-user-status">
+                <div class="status-pill user-id-pill" id="userIdDisplay" title="Click to copy User ID">
+                    <i class="fa-regular fa-user"></i>
+                    <span class="value">GUEST</span>
+                </div>
+                <a href="/aadhaar" class="status-pill credits-pill" style="text-decoration: none; color: inherit;" title="Go to Aadhaar Portal">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--accent-blue);"></i>
+                    <span class="label">Aadhaar Portal</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- DASHBOARD CONTAINER -->
+        <div class="suite-container">
+            <!-- SIDEBAR NAV -->
+            <aside class="suite-sidebar">
+                <nav class="suite-nav-list">
+                    <li>
+                        <button class="suite-nav-btn active" data-tab="generator">
+                            <i class="fa-solid fa-credit-card"></i>
+                            <span>Card Generator</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="suite-nav-btn" data-tab="bin-lookup">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span>BIN Lookup</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="suite-nav-btn" data-tab="fake-address">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>Fake Address</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="/aadhaar" class="suite-nav-btn" style="text-decoration: none;">
+                            <i class="fa-solid fa-share-from-square"></i>
+                            <span>Aadhaar Portal</span>
+                        </a>
+                    </li>
+                </nav>
+
+                <!-- INFO WIDGET -->
+                <div class="sidebar-widget">
+                    <span class="widget-title">Need Support?</span>
+                    <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Access developer utilities, test card checkings, and localized test addresses instantly.</p>
+                    <a href="https://t.me/T_p0907" target="_blank" class="widget-link">
+                        <i class="fa-brands fa-telegram"></i> Contact Admin
+                    </a>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA -->
+            <main class="suite-content">
+                <!-- CARD GENERATOR TAB -->
+                <section class="suite-tab-panel tool-panel active" id="tab-generator">
+                    <div class="panel-header">
+                        <h2><i class="fa-solid fa-wand-magic-sparkles text-gradient"></i> Card Generator</h2>
+                        <p>Generate bulk valid test card numbers matching customized formats</p>
+                    </div>
+
+                    <div class="tool-grid">
+                        <!-- Left inputs -->
+                        <div class="panel-inputs">
+                            <div class="form-group">
+                                <label for="genBin">Enter BIN / Prefix (6-16 digits)</label>
+                                <div class="input-field-suite">
+                                    <i class="fa-solid fa-hashtag"></i>
+                                    <input type="text" id="genBin" placeholder="e.g. 453098 or 45309812xxxxxxxx" maxlength="16" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="input-row-2">
+                                <div class="form-group">
+                                    <label for="genMonth">Expiry Month</label>
+                                    <div class="input-field-suite select-wrapper">
+                                        <i class="fa-regular fa-calendar"></i>
+                                        <select id="genMonth">
+                                            <option value="random">Random</option>
+                                            <option value="01">01 - Jan</option>
+                                            <option value="02">02 - Feb</option>
+                                            <option value="03">03 - Mar</option>
+                                            <option value="04">04 - Apr</option>
+                                            <option value="05">05 - May</option>
+                                            <option value="06">06 - Jun</option>
+                                            <option value="07">07 - Jul</option>
+                                            <option value="08">08 - Aug</option>
+                                            <option value="09">09 - Sep</option>
+                                            <option value="10">10 - Oct</option>
+                                            <option value="11">11 - Nov</option>
+                                            <option value="12">12 - Dec</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="genYear">Expiry Year</label>
+                                    <div class="input-field-suite select-wrapper">
+                                        <i class="fa-regular fa-calendar-days"></i>
+                                        <select id="genYear">
+                                            <option value="random">Random</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                            <option value="2029">2029</option>
+                                            <option value="2030">2030</option>
+                                            <option value="2031">2031</option>
+                                            <option value="2032">2032</option>
+                                            <option value="2033">2033</option>
+                                            <option value="2034">2034</option>
+                                            <option value="2035">2035</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-row-2">
+                                <div class="form-group">
+                                    <label for="genCvv">CVV (Card Security Code)</label>
+                                    <div class="input-field-suite">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <input type="text" id="genCvv" placeholder="Random" maxlength="4">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="genQty">Quantity</label>
+                                    <div class="input-field-suite select-wrapper">
+                                        <i class="fa-solid fa-layer-group"></i>
+                                        <select id="genQty">
+                                            <option value="10">10 Cards</option>
+                                            <option value="20">20 Cards</option>
+                                            <option value="50">50 Cards</option>
+                                            <option value="100">100 Cards</option>
+                                            <option value="250">250 Cards</option>
+                                            <option value="500">500 Cards</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="genFormat">Output Format</label>
+                                <div class="input-field-suite select-wrapper">
+                                    <i class="fa-solid fa-code"></i>
+                                    <select id="genFormat">
+                                        <option value="pipe">PIPE Format (CC|MM|YYYY|CVV)</option>
+                                        <option value="csv">CSV Format</option>
+                                        <option value="json">JSON Format</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button class="btn-suite btn-primary-suite" id="btnGenerateCards" style="margin-top: 1rem;">
+                                <i class="fa-solid fa-gear fa-spin-hover"></i> Generate Cards
+                            </button>
+                        </div>
+
+                        <!-- Right Output -->
+                        <div class="panel-outputs">
+                            <div class="output-container">
+                                <div class="output-header">
+                                    <div class="output-title">
+                                        <i class="fa-solid fa-terminal"></i>
+                                        <span>Generated Output</span>
+                                    </div>
+                                    <div class="output-actions">
+                                        <button class="mini-btn" id="btnCopyCards" title="Copy output to clipboard">
+                                            <i class="fa-solid fa-copy"></i> Copy
+                                        </button>
+                                        <button class="mini-btn" id="btnDownloadCards" title="Download output as file">
+                                            <i class="fa-solid fa-download"></i> Download
+                                        </button>
+                                    </div>
+                                </div>
+                                <textarea class="output-textarea" id="genOutputText" readonly placeholder="Your generated cards will appear here..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BIN LOOKUP TAB -->
+                <section class="suite-tab-panel tool-panel" id="tab-bin-lookup">
+                    <div class="panel-header">
+                        <h2><i class="fa-solid fa-search-plus text-gradient-purple"></i> BIN Lookup</h2>
+                        <p>Retrieve detailed bank and country metrics associated with credit card BIN numbers</p>
+                    </div>
+
+                    <div class="tool-grid">
+                        <!-- Left inputs and interactive card -->
+                        <div>
+                            <div class="form-group">
+                                <label for="lookupBinInput">Card BIN / Prefix (first 6 or 8 digits)</label>
+                                <div class="input-field-suite">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="text" id="lookupBinInput" placeholder="Enter BIN (e.g. 453098)" maxlength="8">
+                                </div>
+                            </div>
+
+                            <button class="btn-suite btn-primary-suite" id="btnLookupBin" style="margin-bottom: 2rem;">
+                                <i class="fa-solid fa-paper-plane"></i> Search BIN Info
+                            </button>
+
+                            <!-- Glass Credit Card Preview -->
+                            <div class="card-preview-wrapper">
+                                <div class="virtual-card" id="previewCard">
+                                    <div class="card-top">
+                                        <span class="card-bank" id="previewCardBank">ISSUER BANK</span>
+                                        <div class="card-brand-logo" id="previewCardBrand">
+                                            <i class="fa-solid fa-credit-card"></i>
+                                        </div>
+                                    </div>
+                                    <div class="card-chip"></div>
+                                    <div class="card-middle">
+                                        <span class="card-number" id="previewCardNumber">4530 98xx xxxx xxxx</span>
+                                    </div>
+                                    <div class="card-bottom">
+                                        <div class="card-info-item">
+                                            <span class="info-label">Card Holder</span>
+                                            <span class="info-val">TEST CARD</span>
+                                        </div>
+                                        <div class="card-info-item">
+                                            <span class="info-label">Country</span>
+                                            <span class="info-val flag-badge" id="previewCardCountry">
+                                                <span>🌎</span> <span id="previewCountryName">Unknown</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right details list -->
+                        <div class="panel-outputs">
+                            <div class="output-container" style="min-height: auto;">
+                                <div class="output-title" style="margin-bottom: 1rem;">
+                                    <i class="fa-solid fa-database"></i>
+                                    <span>Detailed BIN Information</span>
+                                </div>
+
+                                <div class="bin-details-box" id="binDetailsContainer">
+                                    <div class="no-data-placeholder" id="binPlaceholder">
+                                        <i class="fa-solid fa-receipt"></i>
+                                        <p>Enter a card BIN and click search to retrieve database credentials</p>
+                                    </div>
+
+                                    <!-- DYNAMIC DETAILED STATS (hidden initially) -->
+                                    <div class="bin-data-item hidden" data-field="scheme">
+                                        <span class="bin-data-label">Card Scheme</span>
+                                        <span class="bin-data-val" id="binValScheme">-</span>
+                                    </div>
+                                    <div class="bin-data-item hidden" data-field="type">
+                                        <span class="bin-data-label">Card Type</span>
+                                        <span class="bin-data-val" id="binValType">-</span>
+                                    </div>
+                                    <div class="bin-data-item hidden" data-field="tier">
+                                        <span class="bin-data-label">Card Tier</span>
+                                        <span class="bin-data-val" id="binValTier">-</span>
+                                    </div>
+                                    <div class="bin-data-item hidden" data-field="luhn">
+                                        <span class="bin-data-label">Luhn Valid</span>
+                                        <span class="bin-data-val" id="binValLuhn">-</span>
+                                    </div>
+                                    <div class="bin-data-item hidden" style="grid-column: span 2;" data-field="issuer">
+                                        <span class="bin-data-label">Issuing Bank</span>
+                                        <span class="bin-data-val" id="binValIssuer">-</span>
+                                    </div>
+                                    <div class="bin-data-item hidden" style="grid-column: span 2;" data-field="country">
+                                        <span class="bin-data-label">Issuing Country</span>
+                                        <span class="bin-data-val" id="binValCountry">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAKE ADDRESS TAB -->
+                <section class="suite-tab-panel tool-panel" id="tab-fake-address">
+                    <div class="panel-header">
+                        <h2><i class="fa-solid fa-globe text-gradient-orange"></i> Fake Address Generator</h2>
+                        <p>Generate highly realistic billing and shipping address credentials for software testing</p>
+                    </div>
+
+                    <div class="tool-grid">
+                        <!-- Left inputs -->
+                        <div>
+                            <div class="form-group">
+                                <label for="addressCountry">Target Country</label>
+                                <div class="input-field-suite select-wrapper">
+                                    <i class="fa-solid fa-flag"></i>
+                                    <select id="addressCountry">
+                                        <option value="IN">🇮🇳 India (Faker IN)</option>
+                                        <option value="US" selected>🇺🇸 United States (Faker US)</option>
+                                        <option value="GB">🇬🇧 United Kingdom (Faker GB)</option>
+                                        <option value="CA">🇨🇦 Canada (Faker CA)</option>
+                                        <option value="AU">🇦🇺 Australia (Faker AU)</option>
+                                        <option value="FR">🇫🇷 France (Faker FR)</option>
+                                        <option value="DE">🇩🇪 Germany (Faker DE)</option>
+                                        <option value="ES">🇪🇸 Spain (Faker ES)</option>
+                                        <option value="IT">🇮🇹 Italy (Faker IT)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="addressQty">Quantity to Generate (1-10)</label>
+                                <div class="input-field-suite select-wrapper">
+                                    <i class="fa-solid fa-list-numeric"></i>
+                                    <select id="addressQty">
+                                        <option value="1">1 Address</option>
+                                        <option value="3" selected>3 Addresses</option>
+                                        <option value="5">5 Addresses</option>
+                                        <option value="10">10 Addresses</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button class="btn-suite btn-primary-suite" id="btnGenerateAddress" style="margin-top: 1.5rem;">
+                                <i class="fa-solid fa-map-pin"></i> Generate Addresses
+                            </button>
+                        </div>
+
+                        <!-- Right Output address cards -->
+                        <div class="panel-outputs">
+                            <div class="output-container">
+                                <div class="output-header">
+                                    <div class="output-title">
+                                        <i class="fa-solid fa-map"></i>
+                                        <span>Generated Addresses</span>
+                                    </div>
+                                    <div class="output-actions">
+                                        <button class="mini-btn hidden" id="btnCopyAllAddresses">
+                                            <i class="fa-solid fa-copy"></i> Copy All
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="address-grid" id="addressesResultContainer">
+                                    <div class="no-data-placeholder" id="addressPlaceholder">
+                                        <i class="fa-solid fa-house-chimney-window"></i>
+                                        <p>Select a country and quantity to fetch live structured mock addresses</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast hidden">
+        <i class="fa-solid fa-circle-info toast-icon"></i>
+        <span class="toast-message">Notification message here</span>
+    </div>
+
+    <!-- SCRIPT INJECTIONS -->
+    <script src="/static/js/card_tools.js"></script>
+</body>
+</html>
