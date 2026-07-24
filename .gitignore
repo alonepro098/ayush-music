@@ -1,0 +1,22 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Active download caches containing media assets
+downloads/
+*.tmp
+
+# User credentials and keys database
+users.json
+bin_cache.json
+
+# Local environment files and logs
+.env
+*.log
+.venv/
+venv/
+env/
+.idea/
+.vscode/
