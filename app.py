@@ -15,6 +15,15 @@ import tempfile
 DOWNLOADS_DIR = os.path.join(tempfile.gettempdir(), "ayush_music_downloads")
 os.makedirs(DOWNLOADS_DIR, exist_ok=True)
 
+# yt-dlp options to bypass YouTube bot detection/sign-in blocks on cloud platforms like Vercel
+YDL_COMMON_OPTS = {
+    'extractor_args': {
+        'youtube': {
+            'player_client': ['android', 'ios', 'web_embedded']
+        }
+    }
+}
+
 # ============== LOGGING SETUP ==============
 logging.basicConfig(
     level=logging.INFO,
@@ -62,12 +71,14 @@ def download_youtube_background(video_url, video_id, dl_type):
     
     if dl_type == 'audio':
         ydl_opts = {
+            **YDL_COMMON_OPTS,
             'quiet': True,
             'outtmpl': temp_path,
             'format': 'bestaudio/best',
         }
     else:
         ydl_opts = {
+            **YDL_COMMON_OPTS,
             'quiet': True,
             'outtmpl': temp_path,
             'format': 'best[height<=360][ext=mp4]/best[height<=360]/best',
@@ -108,6 +119,7 @@ def search_youtube():
         return jsonify({'result': []})
         
     ydl_opts = {
+        **YDL_COMMON_OPTS,
         'quiet': True,
         'extract_flat': True,
         'skip_download': True,
@@ -181,7 +193,7 @@ def download_api():
             
     if not video_id:
         try:
-            ydl_opts = {'quiet': True, 'extract_flat': True, 'skip_download': True}
+            ydl_opts = {**YDL_COMMON_OPTS, 'quiet': True, 'extract_flat': True, 'skip_download': True}
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 res = ydl.extract_info(f"ytsearch1:{query}", download=False)
                 if 'entries' in res and res['entries']:
@@ -223,11 +235,13 @@ def stream_youtube(video_id, ext, apikey=None):
         
     if ext == 'mp3':
         ydl_opts = {
+            **YDL_COMMON_OPTS,
             'quiet': True,
             'format': 'bestaudio/best',
         }
     else:
         ydl_opts = {
+            **YDL_COMMON_OPTS,
             'quiet': True,
             'format': f'best[height<={quality}][ext=mp4]/best[height<={quality}]/best',
         }
@@ -297,3 +311,4 @@ def stream_youtube(video_id, ext, apikey=None):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
