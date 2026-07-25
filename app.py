@@ -16,13 +16,8 @@ DOWNLOADS_DIR = os.path.join(tempfile.gettempdir(), "ayush_music_downloads")
 os.makedirs(DOWNLOADS_DIR, exist_ok=True)
 
 # yt-dlp options to bypass YouTube bot detection/sign-in blocks on cloud platforms like Vercel
-YDL_COMMON_OPTS = {
-    'extractor_args': {
-        'youtube': {
-            'player_client': ['android', 'ios', 'web_embedded']
-        }
-    }
-}
+# We keep it empty to let the latest yt-dlp version handle player client fallbacks automatically.
+YDL_COMMON_OPTS = {}
 
 # ============== LOGGING SETUP ==============
 logging.basicConfig(
@@ -311,4 +306,3 @@ def stream_youtube(video_id, ext, apikey=None):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
-
