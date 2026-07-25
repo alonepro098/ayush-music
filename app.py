@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 
 import requests
 import yt_dlp
-from flask import Flask, request, jsonify, render_template, send_from_directory, Response, session
+from flask import Flask, request, jsonify, render_template, send_from_directory, Response, session, redirect
 
 # ============== CONFIGURATION ==============
 import tempfile
@@ -239,28 +239,58 @@ def stream_youtube(video_id, ext, apikey=None):
             if not stream_url:
                 return jsonify({'error': 'Failed to obtain direct stream URL'}), 500
                 
-            req_headers = {}
+            if download_as_attachment:
+                # Redirect to avoid Vercel's 4.5MB payload size limit on serverless responses
+                return redirect(stream_url)
+                
+            # Fetch headers to get the total content length
+            head_res = requests.get(stream_url, stream=True, timeout=10)
+            total_size = int(head_res.headers.get('Content-Length', 0))
+            content_type = head_res.headers.get('Content-Type', 'audio/mpeg' if ext == 'mp3' else 'video/mp4')
+            
+            # Implement 2MB range chunking to avoid Vercel 4.5MB response limit
+            MAX_CHUNK_SIZE = 2 * 1024 * 1024  # 2MB
+            start = 0
+            end = None
+            
             range_header = request.headers.get('Range')
             if range_header:
-                req_headers['Range'] = range_header
+                match = re.match(r'bytes=(\d+)-(\d*)', range_header)
+                if match:
+                    start = int(match.group(1))
+                    if match.group(2):
+                        end = int(match.group(2))
+            
+            if end is None:
+                end = start + MAX_CHUNK_SIZE - 1
+            else:
+                end = min(end, start + MAX_CHUNK_SIZE - 1)
                 
+            if total_size:
+                end = min(end, total_size - 1)
+                
+            if start > end:
+                start = end
+                
+            req_headers = {
+                'Range': f'bytes={start}-{end}',
+                'User-Agent': request.headers.get('User-Agent', 'Mozilla/5.0')
+            }
+            
             res = requests.get(stream_url, headers=req_headers, stream=True, timeout=15)
             
-            resp_headers = {}
-            for h in ['Content-Type', 'Content-Length', 'Content-Range', 'Accept-Ranges']:
-                if h in res.headers:
-                    resp_headers[h] = res.headers[h]
-                    
-            if download_as_attachment:
-                title = info.get('title', 'video')
-                safe_title = "".join([c if c.isalnum() or c in '._-' else '_' for c in title])
-                resp_headers['Content-Disposition'] = f'attachment; filename="{safe_title}.{ext}"'
-                
+            resp_headers = {
+                'Content-Type': content_type,
+                'Accept-Ranges': 'bytes',
+                'Content-Length': str(end - start + 1),
+                'Content-Range': f'bytes {start}-{end}/{total_size or "*"}'
+            }
+            
             def generate():
                 for chunk in res.iter_content(chunk_size=40960):
                     yield chunk
                     
-            return Response(generate(), status=res.status_code, headers=resp_headers)
+            return Response(generate(), status=206, headers=resp_headers)
     except Exception as e:
         logger.error(f"Stream error: {e}")
         return jsonify({'error': str(e)}), 500
