@@ -11,7 +11,8 @@ import yt_dlp
 from flask import Flask, request, jsonify, render_template, send_from_directory, Response, session
 
 # ============== CONFIGURATION ==============
-DOWNLOADS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "downloads")
+import tempfile
+DOWNLOADS_DIR = os.path.join(tempfile.gettempdir(), "ayush_music_downloads")
 os.makedirs(DOWNLOADS_DIR, exist_ok=True)
 
 # ============== LOGGING SETUP ==============
